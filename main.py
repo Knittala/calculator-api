@@ -8,7 +8,7 @@ def read_root():
     """Health check endpoint"""
     return {"status": "healthy"}
 
-
+# A function to add two numbers.
 @app.get("/add/{a}/{b}", status_code=200)
 def add(a: float, b: float):
     """
@@ -23,7 +23,7 @@ def add(a: float, b: float):
     """
     return {"result": a + b}
 
-
+# A function to subtract two numbers. 
 @app.get("/sub/{a}/{b}", status_code=200)
 def sub(a: float, b: float):
     """
