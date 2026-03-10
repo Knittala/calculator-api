@@ -1,4 +1,6 @@
+import math
 from fastapi import FastAPI, status, HTTPException
+
 
 app = FastAPI()
 
@@ -69,6 +71,8 @@ def mult(a: str, b: str):
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Both 'a' and 'b' must be valid numbers.")
     return {"result": a * b}
 
+
+# A function to divide two numbers.
 @app.get("/divide/{a}/{b}", status_code=200)
 def div(a: str, b: str):
     """
@@ -97,4 +101,47 @@ def div(a: str, b: str):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, 
             detail="Both 'a' and 'b' must be valid numbers."
+        )
+
+
+# A function to find the square root of a number. 
+@app.get("/sqrt/{a}")
+def get_sqrt(a: str):
+    try:
+        num_a = float(a)
+        if num_a < 0:
+            raise HTTPException(status_code=400, detail="Cannot take square root of negative.")
+        return {"result": math.sqrt(num_a)}
+    except ValueError:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+            detail="Input 'a' must be a valid number."
+        )
+
+# Percentage
+@app.get("/percentage/{a}/{b}")
+def get_percentage(a: str, b: str):
+    try:
+        num_a = float(a)
+        num_b = float(b)
+        if num_b == 0:
+            raise HTTPException(status_code=400, detail="Total 'b' cannot be zero.")
+        return {"result": (num_a / num_b) * 100}
+    except ValueError:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+            detail="Both 'a' and 'b' must be valid numbers."
+        )
+
+# Power
+@app.get("/power/{a}/{b}")
+def get_power(a: str, b: str):
+    try:
+        num_a = float(a)
+        num_b = float(b)
+        return {"result": math.pow(num_a, num_b)}
+    except (ValueError, OverflowError):
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+            detail="Invalid input or result too large."
         )
