@@ -140,8 +140,8 @@ def get_power(a: str, b: str):
         num_a = float(a)
         num_b = float(b)
         return {"result": math.pow(num_a, num_b)}
-    except (ValueError, OverflowError):
+    except ValueError:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, 
-            detail="Invalid input or result too large."
+            detail="Both 'a' and 'b' must be valid numbers."
         )
