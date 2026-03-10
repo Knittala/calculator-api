@@ -126,7 +126,7 @@ def get_percentage(a: str, b: str):
         num_b = float(b)
         if num_b == 0:
             raise HTTPException(status_code=400, detail="Total 'b' cannot be zero.")
-        return {"result": (num_a / num_b) * 100}
+        return {"result": (num_b * (num_a * 0.01))}
     except ValueError:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, 
